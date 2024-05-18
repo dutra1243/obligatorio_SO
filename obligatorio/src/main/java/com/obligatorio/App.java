@@ -8,9 +8,12 @@ public class App {
         new Thread(tracker).start();
         Admin admin = new Admin();
         Puerta.init();
+        Manual manual = new Manual();
+
         String[] lineas = ManejadorArchivosGenerico
-                .leerArchivo("obligatorio/src/main/java/com/obligatorio/expressions.txt");
+                .leerArchivo("obligatorio/src/main/java/com/obligatorio/expressions3.txt");
         new Thread(admin).start();
+        new Thread(manual).start();
         for (String linea : lineas) {
             int randomInt = (int) (Math.random() * 500);
             try {
@@ -19,8 +22,9 @@ public class App {
                 e.printStackTrace();
             }
             String[] datos = linea.split(";");
-            admin.recibirMensaje(Integer.parseInt(datos[0]), Double.parseDouble(datos[1]), Integer.parseInt(datos[2]),
-                    Integer.parseInt(datos[3]), new Time(System.currentTimeMillis() + randomInt));
+            Admin.recibirMensaje(Integer.parseInt(datos[0]), Double.parseDouble(datos[1]), Integer.parseInt(datos[2]),
+                    Integer.parseInt(datos[3]), new Time(System.currentTimeMillis() + randomInt),
+                    Integer.parseInt(datos[4]));
         }
 
     }

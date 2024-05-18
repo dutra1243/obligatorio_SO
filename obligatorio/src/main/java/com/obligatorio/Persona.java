@@ -12,13 +12,16 @@ public class Persona extends Thread {
     int identificadorPersona;
     int prioridad;
     Time tiempo;
+    int prohibido;
 
-    public Persona(int numeroPuerta, double coincidencia, int identificadorPersona, int prioridad, Time tiempo) {
+    public Persona(int numeroPuerta, double coincidencia, int identificadorPersona, int prioridad, Time tiempo,
+            int prohibido) {
         this.numeroPuerta = numeroPuerta;
         this.coincidencia = coincidencia;
         this.identificadorPersona = identificadorPersona;
         this.prioridad = prioridad;
         this.tiempo = tiempo;
+        this.prohibido = prohibido;
     }
 
     public void run() {

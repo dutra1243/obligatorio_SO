@@ -9,14 +9,19 @@ public class Admin implements Runnable {
 
     private static ColaConPrioridad<Persona>[] colas = new ColaConPrioridad[12];
 
-    public void recibirMensaje(int numeroPuerta, double coincidencia, int identificadorPersona, int prioridad,
-            Time tiempo) {
+    public static void recibirMensaje(int numeroPuerta, double coincidencia, int identificadorPersona, int prioridad,
+            Time tiempo, int prohibido) {
         if (coincidencia < 0.95)
             return;
         if (coincidencia < 0.995) {
-            Manual.procesar(numeroPuerta, coincidencia, identificadorPersona, prioridad, tiempo);
+            Manual.procesar(numeroPuerta, coincidencia, identificadorPersona, prioridad, tiempo, prohibido);
+            return;
         }
-        Persona p = new Persona(numeroPuerta, coincidencia, identificadorPersona, prioridad, tiempo);
+        if (prohibido == 1) {
+            System.out.println("La persona fue rechazada por estar prohibida.");
+            return;
+        }
+        Persona p = new Persona(numeroPuerta, coincidencia, identificadorPersona, prioridad, tiempo, prohibido);
         colas[numeroPuerta].encolar(p.prioridad, p);
     }
 
